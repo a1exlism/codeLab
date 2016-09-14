@@ -2,11 +2,21 @@
 * {
 	margin: 0;
 	padding: 0;
+	font-family: Roboto,sans-serif;
+	color: rgba(255, 255, 255, 0.7);
 }
 
 body {
 	margin: 0;
-  font:normal 75% Arial, Helvetica, sans-serif;
+}
+
+/* 去除选中的虚线框 */
+a,input,button,select,textarea{
+	outline:none
+}
+
+a:focus {
+	outline: none;
 }
 
 canvas {
@@ -44,4 +54,110 @@ canvas {
 	border-radius: 0;
 }
 
-/* Login form */
+.panel-body .form-group{
+	margin-bottom: 10px;
+}
+/* Login Container */
+
+.panel-login {
+	/* 垂直居中 */
+  position: relative;
+  transform:translateY(65%);
+}
+
+.panel-login {
+	background-color: rgba(255, 255, 255, 0.15);
+
+}
+
+.panel-login .panel-body,.panel-login .panel-heading {
+	padding: 10px;
+}
+
+.panel-login .panel-heading hr {
+	margin-top: 10px;
+	margin-bottom: 0;
+	clear: both;
+	border: 0;
+	height: 1px;
+	background-image: -webkit-linear-gradient(left,rgba(255,255,255, 0.35),rgba(255,255,255, 0.35),rgba(255,255,255, 0.35));
+	background-image: -moz-linear-gradient(left,rgba(255,255,255,0.35),rgba(255,255,255,0.35),rgba(255,255,255,0.35));
+	background-image: -ms-linear-gradient(left,rgba(255,255,255,0.35),rgba(255,255,255,0.35),rgba(255,255,255,0.35));
+	background-image: -o-linear-gradient(left,rgba(255,255,255,0.35),rgba(255,255,255,0.35),rgba(255,255,255,0.35));
+}
+
+.panel-login .panel-heading {
+	text-align: center;
+}
+
+.panel-login input {
+	background-color: transparent;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+/* 自定义check box */
+.panel-login input[type='checkbox'] {
+	display: none;
+	-moz-user-select: none;
+}
+
+.panel-login label[for='remember'] {
+	display: inline-block;
+}
+
+.panel-login label[for='remember']::before {
+	content: '';
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	background-color: rgba(255, 255, 255, 0.4);
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+.panel-login input[type='checkbox']:checked+label[for='remember']::before {
+	background-color: rgba(181, 255, 147, 0.76);
+}
+
+.panel-heading .col-xs-6{
+	height: 25px;
+	vertical-align: middle;
+}
+
+.panel-login a:link,a:hover,a:visited{
+	font-family: "Roboto";
+	font-weight: 400;
+	line-height: 25px;
+	color: rgba(255, 255, 255, 0.89);
+	text-decoration:none;
+}
+
+
+#form-login {
+	display: block;
+}
+
+.btn-login {
+
+}
+
+#submit-login {
+
+}
+
+.forget-password {
+
+}
+
+/* Register Container */
+#form-register {
+	display: none;
+}
+
+#submit-register {
+
+}
+
+.btn-register {
+
+}

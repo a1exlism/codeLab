@@ -6,9 +6,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./roboto.css">
 	<link rel="stylesheet" href="./style.css"	>
 </head>
-<body class="container-fluid" id="particles-js">
+<body class="container-fluid" style="padding:0;">
+	<div id="particles-js"></div>
 	<!-- Navigation Bar -->
 	<nav id="navbar" class="navbar navbar-fixed-top" role="navigation">
 	  <div class="container-fluid">
@@ -34,54 +36,85 @@
 	    </div>
 	  </div>
 	</nav>
+	<!-- login/register -->
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-8 col-xs-offset-2 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+				<!-- 添加面板 -->
+				<div class="panel panel-login">
+					<div class="panel-body">
+						<!-- panel header -->
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-6" style="border-right: 1px solid rgba(255,255,255, 0.35);">
+									<a href="#" class="active" id="login-form-link">Login</a>
+								</div>
+								<div class="col-xs-6">
+									<a href="#" class="" id="register-form-link">Register</a>
+								</div>
+							</div>
+							<hr>
+						</div>
+						<!-- panel body -->
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-xs-10 col-xs-offset-1">
+									<form id="form-login" action="/login" method="post" role="form">
+										<div class="form-group">
+											<!-- <label for="username">Username</label> -->
+											<input type="text" class="form-control" name="username" id="username" placeholder="Username" tabindex="1">
+										</div>
+										<div class="form-group">
+											<!-- <label for="password">Password</label> -->
+											<input type="password" class="form-control" name="password" id="password" placeholder="Password" tabindex="2">
+										</div>
+										<div class="form-group text-center">
+											<input type="checkbox" tabindex="3" name="remember" id="remember">
+											<label for="remember" onselectstart="return false;" >Remember Me</label>
+										</div>
+										<div class="form-group">
+											<div class="row">
+												<div class="col-md-6 col-md-offset-3">
+													<input type="submit" value="Login In" id="submit-login" name="submit-login" class="btn btn-success form-control" tabindex="4">
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="row">
+												<div class="col-lg-12">
+													<div class="text-center">
+														<a href="#" tabindex="5" class="forget-password">Forget Password?</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+									<!-- Register -->
+									<form id="form-register" action="/register" method="post" role="form">
+									  <div class="form-group">
+									    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="" /></div>
+									  <div class="form-group">
+									    <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="" /></div>
+									  <div class="form-group">
+									    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" /></div>
+									  <div class="form-group">
+									    <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password" /></div>
+									  <div class="form-group">
+									    <div class="row">
+									      <div class="col-sm-6 col-sm-offset-3">
+									        <input type="submit" name="submit-register" id="submit-register" tabindex="4" class="form-control btn btn-primary" value="Register Now" /></div>
+									    </div>
+									  </div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-	<!-- Login Form -->
-	<div style="margin-left: auto;margin-right: auto;width: 300px;text-align: center;background-color: rgba(50,50,50,0.6);padding: 20px 40px 60px 40px;position: relative;">
-   <div class="selectLog" style="position: absolute;left: 0px;top: -44px;width: 380px;">
-    <div id="phoneLog" onclick="show_div()" style="border-bottom: 1px solid white; color: white;">
-     Mobile Login
-    </div>
-    <div class="v-line"></div>
-    <div id="webLog" onclick="show_div1()" style="border-bottom: 1px solid rgba(50, 50, 50, 0);">
-     Web Login
-    </div>
-   </div>
-   <!--<div style="position: absolute;top: -50px;left: 130px;color: #c23c2a;font-weight: 700;font-size: 14px;">NEW</div>-->
-   <img src="http://dotamax.com/static/image/max.png" style="width:120px;margin-bottom: 5px;" />
-   <div style="margin-top: 5px;margin-bottom: 20px;color:#ccc;font-size: 14px;font-weight: 600;">
-    Big Data For Games
-   </div>
-   <form action="/accounts/login/" id="login_form" method="post" name="rsa" style="font-size: 12px;">
-    <input type="hidden" name="csrfmiddlewaretoken" value="iLY0SJeTEoHc8vHNckqWMNHxmo0CsMOf" />
-    <input name="phoneNumCipherb64" type="hidden" value="" />
-    <input name="usernameCipherb64" type="hidden" value="" />
-    <input name="passwordCipherb64" type="hidden" value="" />
-    <input id="account-type" type="hidden" name="account-type" value="1" />
-    <input id="src" type="hidden" name="src" value="None" />
-   </form>
-   <input id="rsa_e" name="e" type="hidden" value="10001" />
-   <input id="rsa_n" name="n" type="hidden" value="B81E72A33686A201B0AC009D679750990E3D168670DC6F9452C24E5A4C299AC002C6C89C3CB38784AEA95D66B7B3E9CA950EB9EEFB4EF61383EDDB67C35727F9CA87EE3238346C66D042B35812179501F472AD4F3BA19E701256FE0435AB856E5C5BEA24A2387153023CD4CD43CDA7260FCC1E2E49C14102C253F559F9A45D59DF5004A017B1239448A9A001D276CAD12535DEDE89FFBD57D75BBC9B575530DDD1B7FAD46064AD3C640CBD017F58981215B2EE17CBE175C36570C5235902818648577234E70E81133B088164F98E605D0D6E69A6095A32A72511E9AC901727B635CE2E8002A7B0EC8D012606903BCB825E60C7B6619FFCED4401E693F5EC68AB" />
-   <input id="phoneNum" name="phoneNum" type="text" placeholder="Phone Number" style="width: 300px; border-bottom: 1px solid rgb(227, 227, 227);" class="login-input top-radius" value="" required="" />
-   <input id="username" name="" type="text" placeholder="Username" style="width: 300px; border-bottom: 1px solid rgb(227, 227, 227); display: none;" class="login-input top-radius" value="" required="" />
-   <input id="password" name="password" type="password" style="width:300px;margin-bottom:20px;" class="login-input bottom-radius" placeholder="password" value="" required="" />
-   <div style="margin-left: 0px;margin-bottom: 5px;color:#ec3627">
-   </div>
-   <div id="login-btn" class="login-in-btn" style="margin-right: 10px;">
-     Login
-   </div>
-   <div class="sign-up-btn" onclick="document.location.href = '/register/'" style="margin-right: 10px;margin-top: 10px;">
-     Create Your Dotamax Account
-   </div>
-   <!--div class="sign-up-btn" onclick="DoNav('/register');">
-    创建我的Dotamax账号
-</div-->
-   <div style="margin-top: 20px;text-align: left;">
-    <a href="/accounts/find_password/input/" style="margin-left: 3px;margin-top: 20px;color:#ccc;font-size: 12px;">Forget Password?</a>
-   </div>
-   <div style="position: absolute;right:40px;bottom: 20px;">
-    <a href="javascript:history.go(-1)" style="color: rgb(152, 152, 152)">Back</a>
-   </div>
-  </div>
 
 	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 	<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
