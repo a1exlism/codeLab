@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!-- <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"> -->
+	<title>Full Screen</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			border: none;
+			color: #fff;
+			/*自适应的字体大小*/
+			font-size: 5vw;
+		}
+		html,body{
+			/*H5中html和body都是块状元素*/
+			width: 100%;
+			height: 100%;
+		}
+		body{
+/*			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			overflow: hidden;*/
+		}
+
+		div{
+			width: 100%;
+		}
+		
+		.div1{	
+			position: absolute;
+			background-color: #7078DD;
+			height: 100%;
+		}
+
+		/* Css3 Key Words*/
+		@keyframes fadein{	
+			from{ opacity: 0.5; }
+			to{ opacity: 1; }
+		}
+		/* Firefox < 16 */
+		@-moz-keyframes fadein {
+			from{ opacity: 0.5; }
+			to{ opacity: 1; }
+		}
+		/* Safari, Chrome and Opera > 12.1 */
+		@-webkit-keyframes fadein {
+			from{ opacity: 0.5; }
+			to{ opacity: 1; }
+		}
+
+		@keyframes fadeout{	
+			from{ opacity: 1; }
+			to{ opacity: 0.5; }
+		}
+		@-moz-keyframes fadeout {
+			from{ opacity: 1; }
+			to{ opacity: 0.5; }
+		}
+		@-webkit-keyframes fadeout {
+			from{ opacity: 1; }
+			to{ opacity: 0.5; }
+		}
+		
+		.fadeIn{
+			--webkit-animation: fadein 0.8s;
+					-moz-animation: fadein 0.8s;
+							 animation: fadein 0.8s;
+		}
+
+		.fadeOut{
+			--webkit-animation: fadeout 0.8s;
+					-moz-animation: fadeout 0.8s;
+							 animation: fadeout 0.8s;
+		}
+
+		.div4{
+			display: none;
+			position: absolute;
+			background-color: #55008B;
+			height: 100%;
+		}
+		.div2{
+			position: relative;
+			background-color: #04A91D;
+		}
+		.div3{
+			position: absolute;
+			background-color: #A1CC00;
+		}
+		#btn{
+			background-color: #A2B4E9;
+		}
+	</style>
+</head>
+<body>
+	<div class="div1">
+		<p>
+			I have full screen.
+		</p>
+		<div class="div2">
+			<h2>position: relative</h2>
+			<p>
+				If position is <strong>absolute</strong>, the width will change while the content changing.
+			</p>
+		</div>
+		<div class="div3">
+			<h2>Position: absolute;</h2>
+		</div>
+	</div>
+	<div class="div4">
+		<p>I am the second full page.</p>
+		<p>通过display进行隐藏操作实现2页切换</p>
+		<button id="btn">Display: none</button>
+	</div>
+	<script type="text/javascript">
+	
+	(function(window, document) {
+		var prefix = "",
+		_addEventListener, onwheel, support;
+
+		// detect event model
+		if (window.addEventListener) {
+			_addEventListener = "addEventListener";
+		} else {
+			_addEventListener = "attachEvent";
+			prefix = "on";
+		}
+
+		// detect available wheel event
+		support = "onwheel" in document.createElement("div") ? "wheel": // 各个厂商的高版本浏览器都支持"wheel"
+		document.onmousewheel !== undefined ? "mousewheel": // Webkit 和 IE一定支持"mousewheel"
+		"DOMMouseScroll"; // 低版本firefox
+		window.addWheelListener = function(elem, callback, useCapture) {
+			_addWheelListener(elem, support, callback, useCapture);
+
+			// handle MozMousePixelScroll in older Firefox
+			if (support == "DOMMouseScroll") {
+				_addWheelListener(elem, "MozMousePixelScroll", callback, useCapture);
+			}
+		};
+
+		function _addWheelListener(elem, eventName, callback, useCapture) {
+			elem[_addEventListener](prefix + eventName, support == "wheel" ? callback: function(originalEvent) { ! originalEvent && (originalEvent = window.event);
+
+				// create a normalized event object
+				var event = {
+					// keep a ref to the original event object
+					originalEvent: originalEvent,
+					target: originalEvent.target || originalEvent.srcElement,
+					type: "wheel",
+					deltaMode: originalEvent.type == "MozMousePixelScroll" ? 0 : 1,
+					deltaX: 0,
+					deltaZ: 0,
+					preventDefault: function() {
+						originalEvent.preventDefault ? originalEvent.preventDefault() : originalEvent.returnValue = false;
+					}
+				};
+
+				// calculate deltaY (and deltaX) according to the event
+				if (support == "mousewheel") {
+					event.deltaY = -1 / 40 * originalEvent.wheelDelta;
+					// Webkit also support wheelDeltaX
+					originalEvent.wheelDeltaX && (event.deltaX = -1 / 40 * originalEvent.wheelDeltaX);
+				} else {
+					event.deltaY = originalEvent.detail;
+				}
+
+				// it's time to fire the callback
+				return callback(event);
+
+			},
+			useCapture || false);
+		}
+	})(window, document);	
+
+	window.onload = function() {
+		var btn = document.getElementById('btn'),
+				div1 = document.getElementsByClassName('div1')[0],
+				div4 = document.getElementsByClassName('div4')[0];
+		btn.onclick = function() {
+			setTimeout( () => {
+				div4.style.display = 'none';
+				div1.style.display = 'block';
+			}, 200);
+			div1.setAttribute('class', 'div1 fadeIn');
+		}
+		addWheelListener(div1, () =>{
+			div1.setAttribute("class", "div1 fadeOut");
+			setTimeout(() => {
+				div1.style.display = 'none';
+				div4.style.display = 'block';				
+			}, 1000);
+		}, true);
+
+	}
+
+	</script>
+</body>
+</html>
