@@ -1,0 +1,98 @@
+/* ---  reset  ---*/
+* {
+	margin: 0;
+	padding: 0;
+	font-family: Roboto, -apple-system,BlinkMacSystemFont,Neue Haas Grotesk Text Pro,Arial Nova,Segoe UI,Helvetica Neue,\.PingFang SC,PingFang SC,Microsoft YaHei,Microsoft JhengHei,Source Han Sans SC,Noto Sans CJK SC,Source Han Sans CN,Noto Sans SC,Source Han Sans TC,Noto Sans CJK TC,Hiragino Sans GB,sans-serif; ;
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	/*background-color: #222;*/
+	background-image: url(imgs/background.jpg);
+	background-position: center;
+	overflow: hidden;
+}
+
+/*-- canvasc background -- */
+canvas {
+	top: 0;
+	left: 0;
+	position: fixed;
+	height: 100%;
+	z-index: -1;
+}
+
+h3 {
+	font-size: 2em;
+}
+
+h4 {
+	font-size: 1.7em;
+}
+
+.red {
+	color: #F11717;
+}
+
+
+.topleft{
+	position: fixed;
+	margin-top: 1em;
+	display: inline-block;
+	vertical-align: middle;
+	background-color: rgba(27,27,27,0.3);
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.topleft > h3 {
+	color: rgba(255, 255, 255,0.8);
+}
+
+.topleft img {
+	width: 1.2em;
+	height: 1.2em;
+}
+
+.topleft > *{
+	display: inline-block;
+}
+
+.codes {
+	display: table;
+	position: relative;	
+	top: 15%;
+	margin: 0 auto;
+	color: rgba(255, 255, 255, 0.9);
+}
+
+.codes .row {
+	margin: 0 2em;
+}
+
+.code_1,.code_2, .code_3 {
+	line-height: 1.2em;
+}
+
+.qr_code {
+	position: absolute;
+	margin-top: 2em;
+	margin: 0 auto;
+}
+
+.qr_code > div {
+	padding: 8px 0 0;
+}
+
+.qr_code img{
+	height: 6em;
+	width: 6em;
+}
+
+.qr_code {
+	text-align: center;
+	font-size: 1.3em;
+}
