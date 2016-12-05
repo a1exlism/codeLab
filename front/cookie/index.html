@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Cookie</title>
+</head>
+
+<body>
+	<script>
+		(function check() {
+			//	new cookie
+			if (/new/.test(document.cookie)) {
+				document.cookie = document.cookie.replace(/new/i, 'old');
+			} else {
+				document.cookie = 'user=new;expires=' + new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000);
+			}
+			//	$n need quotes
+			if (document.cookie.replace(/(?:user=(.*);?)/i, "$1") == 'new') {
+				alert(/Welcome here./.source);
+			} else {
+				alert(/Welcome again./.source);
+			}
+		})();
+	</script>
+</body>
+
+</html>
