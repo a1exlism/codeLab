@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Holy Grail Layout</title>
+	<style>
+		html,
+		body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			padding-left: 100px;
+			padding-right: 200px;
+		}
+
+		.main {
+			width: 100%;
+			height: 100%;
+			float: left;
+		}
+
+		.left,
+		.right {
+			position: relative;
+			height: 100%;
+			float: left;
+		}
+
+		.left {
+			background-color: rgb(110, 214, 64);
+			width: 100px;
+			margin-left: -100%;
+			left: -100px;
+			content-margin-left: "这边-100%的概念是.main已经占据了100%的宽度, left会换行."
+			content-left: "这个则是响应padding-left:100px;不然会覆盖";
+		}
+
+		.right {
+			background-color: rgb(42, 56, 181);
+			width: 200px;
+			margin-left: -200px;
+			right: -200px;
+			content-margin-left: "同理.为了保证在同一行.";
+			content-right: "同理";
+		}
+	</style>
+</head>
+
+<body>
+	<div class="main">
+		具体请看css的content内容
+	</div>
+	<div class="left"></div>
+	<div class="right"></div>
+</body>
+
+</html>

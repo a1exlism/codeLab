@@ -1,27 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Document</title>
 	<style>
-		/*简单的进行CSS reset*/
-
-		body,
-		html {
+		html, body {
 			height: 100%;
-			padding: 0px;
-			margin: 0px;
+			padding: 0;
+			margin: 0;
 		}
-		/*左右绝对定位*/
 
-		.left,
-		.right {
+		.left, .right {
 			position: absolute;
-			top: 0px;
-			background: red;
+			top: 0;
+			background-color: rgb(107, 179, 93);
 			height: 100%;
 		}
 
@@ -31,24 +25,20 @@
 		}
 
 		.right {
-			right: 0px;
+			right: 0;
 			width: 200px;
 		}
-		/*中间使用margin空出左右元素所占据的空间*/
 
 		.main {
-			margin: 0px 100px 0px 200px;
+			margin:0 200px 0 100px;
 			height: 100%;
-			background: blue;
+			background-color: rgb(92, 111, 194);
 		}
 	</style>
 </head>
-
 <body>
-
-	<div class="left">Left</div>
-	<div class="main">Main</div>
-	<div class="right">Right</div>
+	<div class="left"></div>
+	<div class="main"></div>
+	<div class="right"></div>
 </body>
-
 </html>
