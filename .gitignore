@@ -1,10 +1,12 @@
+# front
+front/templates/
+front/templates/*
+
 # scss
 .sass-cache
 .sass-cache/*
 *.css.map
 
-# node modules
-/node_modules/*
 # test folder
 test/*
 # Logs

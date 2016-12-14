@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)http://hctf.xctf.org.cn/newexamtrend/2/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>XCTF Platform | </title>
+<link rel="shortcut icon" href="http://hctf.xctf.org.cn/static/favicon.png">
+<link rel="stylesheet" type="text/css" href="./XCTF Platform __files/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="./XCTF Platform __files/bootstrap-select.min.css">
+<link rel="stylesheet" type="text/css" href="./XCTF Platform __files/common.css">
+<link rel="stylesheet" type="text/css" href="./XCTF Platform __files/base.css">
+<link rel="stylesheet" href="./XCTF Platform __files/layout.css">
+<link rel="stylesheet" href="./XCTF Platform __files/en.css">
+<script type="text/javascript" src="./XCTF Platform __files/saved_resource"></script>
+<script src="./XCTF Platform __files/jquery-2.2.4.js"></script>
+<script src="./XCTF Platform __files/bootstrap-select.js"></script>
+<script src="./XCTF Platform __files/ajax.csrf.js"></script>
+<script src="./XCTF Platform __files/jquery.validate.min.js"></script>
+<script src="./XCTF Platform __files/bootstrap-table.min.js"></script>
+<script src="./XCTF Platform __files/bootstrap-table-zh-CN.min.js"></script>
+<script src="./XCTF Platform __files/bootstrap.min.js"></script>
+<script src="./XCTF Platform __files/error.message.js"></script>
+<script src="./XCTF Platform __files/common.js"></script>
+<script src="./XCTF Platform __files/modify.js"></script>
+<script src="./XCTF Platform __files/uploadPreview.js"></script>
+<script src="./XCTF Platform __files/jquery.cookie.js"></script>
+<script src="./XCTF Platform __files/jquery.ba-resize.min.js"></script>
+<script src="./XCTF Platform __files/echarts.min.js"></script>
+<script src="./XCTF Platform __files/laydate.js"></script><link type="text/css" rel="stylesheet" href="./XCTF Platform __files/laydate.css"><link type="text/css" rel="stylesheet" href="./XCTF Platform __files/laydate(1).css" id="LayDateSkin">
+<script src="./XCTF Platform __files/echart_draw.js"></script>
+<style id="holderjs-style" type="text/css"></style></head><script>function inject() {
+
+	var originalOpenWndFnKey = "originalOpenFunction";
+
+			var originalWindowOpenFn 	= window.open,
+			    originalCreateElementFn = document.createElement,
+			    originalCreateEventFn 	= document.createEvent,
+				windowsWithNames = {};
+			var timeSinceCreateAElement = 0;
+			var lastCreatedAElement = null;
+			var fullScreenOpenTime;
+			var parentOrigin = (window.location != window.parent.location) ? document.referrer: document.location;
+
+			window[originalOpenWndFnKey] = window.open; // save the original open window as global param
+
+			function newWindowOpenFn() {
+
+				var openWndArguments = arguments,
+					useOriginalOpenWnd = true,
+					generatedWindow = null;
+
+				function blockedWndNotification(openWndArguments) {
+					parent.postMessage({ type: "blockedWindow", args: JSON.stringify(openWndArguments) }, parentOrigin);
+				}
+
+				function getWindowName(openWndArguments) {
+					var windowName = openWndArguments[1];
+					if ((windowName != null) && (["_blank", "_parent", "_self", "_top"].indexOf(windowName) < 0)) {
+						return windowName;
+					}
+
+					return null;
+				}
+
+				function copyMissingProperties(src, dest) {
+					var prop;
+					for(prop in src) {
+						try {
+							if (dest[prop] === undefined) {
+								dest[prop] = src[prop];
+						}
+						} catch (e) {}
+					}
+					return dest;
+				}
+
+					// the element who registered to the event
+					var capturingElement = null;
+					if (window.event != null) {
+						capturingElement = window.event.currentTarget;
+					}
+
+					if (capturingElement == null) {
+						var caller = openWndArguments.callee;
+						while ((caller.arguments != null) && (caller.arguments.callee.caller != null)) {
+							caller = caller.arguments.callee.caller;
+						}
+						if ((caller.arguments != null) && (caller.arguments.length > 0) && (caller.arguments[0].currentTarget != null)) {
+							capturingElement = caller.arguments[0].currentTarget;
+						}
+					}
+
+				/////////////////////////////////////////////////////////////////////////////////
+				// Blocked if a click on background element occurred (<body> or document)
+				/////////////////////////////////////////////////////////////////////////////////
+
+					if ((capturingElement != null) && (
+							(capturingElement instanceof Window) ||
+							(capturingElement === document) ||
+							(
+								(capturingElement.URL != null) && (capturingElement.body != null)
+							) ||
+							(
+								(capturingElement.nodeName != null) && (
+									(capturingElement.nodeName.toLowerCase() == "body") ||
+									(capturingElement.nodeName.toLowerCase() == "#document")
+								)
+							)
+						)) {
+							window.pbreason = "Blocked a new window opened with URL: " + openWndArguments[0] + " because it was triggered by the " + capturingElement.nodeName + " element";
+							// console.info(window.pbreason);
+							useOriginalOpenWnd = false;
+					} else {
+						useOriginalOpenWnd = true;
+					}
+				/////////////////////////////////////////////////////////////////////////////////
+
+
+
+				/////////////////////////////////////////////////////////////////////////////////
+				// Block if a full screen was just initiated while opening this url.
+				/////////////////////////////////////////////////////////////////////////////////
+
+					// console.info("fullscreen: " + ((new Date()).getTime() - fullScreenOpenTime));
+					// console.info("webkitFullscreenElement: " + document.webkitFullscreenElement);
+					var fullScreenElement = document.webkitFullscreenElement || document.mozFullscreenElement || document.fullscreenElement
+					if ((((new Date()).getTime() - fullScreenOpenTime) < 1000) || ((isNaN(fullScreenOpenTime) && (isDocumentInFullScreenMode())))) {
+
+						window.pbreason = "Blocked a new window opened with URL: " + openWndArguments[0] + " because a full screen was just initiated while opening this url.";
+						// console.info(window.pbreason);
+
+						/* JRA REMOVED
+						if (window[script_params.fullScreenFnKey]) {
+							window.clearTimeout(window[script_params.fullScreenFnKey]);
+						}
+						*/
+
+						if (document.exitFullscreen) {
+							document.exitFullscreen();
+						}
+						else if (document.mozCancelFullScreen) {
+							document.mozCancelFullScreen();
+						}
+						else if (document.webkitCancelFullScreen) {
+							document.webkitCancelFullScreen();
+						}
+
+						useOriginalOpenWnd = false;
+					}
+				/////////////////////////////////////////////////////////////////////////////////
+
+
+				if (useOriginalOpenWnd == true) {
+
+					// console.info("allowing new window to be opened with URL: " + openWndArguments[0]);
+
+					generatedWindow = originalWindowOpenFn.apply(this, openWndArguments);
+
+					// save the window by name, for latter use.
+					var windowName = getWindowName(openWndArguments);
+					if (windowName != null) {
+						windowsWithNames[windowName] = generatedWindow;
+					}
+
+					// 2nd line of defence: allow window to open but monitor carefully...
+
+					/////////////////////////////////////////////////////////////////////////////////
+					// Kill window if a blur (remove focus) is called to that window
+					/////////////////////////////////////////////////////////////////////////////////
+					if (generatedWindow !== window) {
+						var openTime = (new Date()).getTime();
+						var originalWndBlurFn = generatedWindow.blur;
+						generatedWindow.blur = function() {
+							if (((new Date()).getTime() - openTime) < 1000 /* one second */) {
+								window.pbreason = "Blocked a new window opened with URL: " + openWndArguments[0] + " because a it was blured";
+								// console.info(window.pbreason);
+								generatedWindow.close();
+								blockedWndNotification(openWndArguments);
+							} else {
+								// console.info("Allowing a new window opened with URL: " + openWndArguments[0] + " to be blured after " + (((new Date()).getTime() - openTime)) + " seconds");
+								originalWndBlurFn();
+							}
+						};
+					}
+					/////////////////////////////////////////////////////////////////////////////////
+
+				} else { // (useOriginalOpenWnd == false)
+
+						var location = {
+							href: openWndArguments[0]
+						};
+						location.replace = function(url) {
+							location.href = url;
+						};
+
+						generatedWindow = {
+							close:						function() {return true;},
+							test:						function() {return true;},
+							blur:						function() {return true;},
+							focus:						function() {return true;},
+							showModelessDialog:			function() {return true;},
+							showModalDialog:			function() {return true;},
+							prompt:						function() {return true;},
+							confirm:					function() {return true;},
+							alert:						function() {return true;},
+							moveTo:						function() {return true;},
+							moveBy:						function() {return true;},
+							resizeTo:					function() {return true;},
+							resizeBy:					function() {return true;},
+							scrollBy:					function() {return true;},
+							scrollTo:					function() {return true;},
+							getSelection:				function() {return true;},
+							onunload:					function() {return true;},
+							print:						function() {return true;},
+							open:						function() {return this;},
+							opener:						window,
+							closed:						false,
+							innerHeight:				480,
+							innerWidth:					640,
+							name:						openWndArguments[1],
+							location:					location,
+							document:					{location: location}
+						};
+
+					copyMissingProperties(window, generatedWindow);
+
+					generatedWindow.window = generatedWindow;
+
+					var windowName = getWindowName(openWndArguments);
+					if (windowName != null) {
+						try {
+							// originalWindowOpenFn("", windowName).close();
+							windowsWithNames[windowName].close();
+							// console.info("Closed window with the following name: " + windowName);
+						} catch (err) {
+							// console.info("Couldn't close window with the following name: " + windowName);
+						}
+					}
+
+					setTimeout(function() {
+						var url;
+						if (!(generatedWindow.location instanceof Object)) {
+							url = generatedWindow.location;
+						} else if (!(generatedWindow.document.location instanceof Object)) {
+							url = generatedWindow.document.location;
+						} else if (location.href != null) {
+							url = location.href;
+						} else {
+							url = openWndArguments[0];
+						}
+						openWndArguments[0] = url;
+						blockedWndNotification(openWndArguments);
+					}, 100);
+				}
+
+				return generatedWindow;
+			}
+
+
+			/////////////////////////////////////////////////////////////////////////////////
+			// Replace the window open method with Poper Blocker's
+			/////////////////////////////////////////////////////////////////////////////////
+			window.open = function() {
+				try {
+					return newWindowOpenFn.apply(this, arguments);
+				} catch(err) {
+					return null;
+				}
+			};
+			/////////////////////////////////////////////////////////////////////////////////
+
+
+
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////
+			// Monitor dynamic html element creation to prevent generating <a> elements with click dispatching event
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////
+			document.createElement = function() {
+
+					var newElement = originalCreateElementFn.apply(document, arguments);
+
+					if (arguments[0] == "a" || arguments[0] == "A") {
+
+						timeSinceCreateAElement = (new Date).getTime();
+
+						var originalDispatchEventFn = newElement.dispatchEvent;
+
+						newElement.dispatchEvent = function(event) {
+							if (event.type != null && (("" + event.type).toLocaleLowerCase() == "click")) {
+								window.pbreason = "blocked due to an explicit dispatchEvent event with type 'click' on an 'a' tag";
+								// console.info(window.pbreason);
+								parent.postMessage({type:"blockedWindow", args: JSON.stringify({"0": newElement.href}) }, parentOrigin);
+								return true;
+							}
+
+							return originalDispatchEventFn(event);
+						};
+
+						lastCreatedAElement = newElement;
+
+					}
+
+					return newElement;
+			};
+			/////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+			/////////////////////////////////////////////////////////////////////////////////
+			// Block artificial mouse click on frashly created <a> elements
+			/////////////////////////////////////////////////////////////////////////////////
+			document.createEvent = function() {
+				try {
+					if ((arguments[0].toLowerCase().indexOf("mouse") >= 0) && ((new Date).getTime() - timeSinceCreateAElement) <= 50) {
+						window.pbreason = "Blocked because 'a' element was recently created and " + arguments[0] + " event was created shortly after";
+						// console.info(window.pbreason);
+						arguments[0] = lastCreatedAElement.href;
+						parent.postMessage({ type: "blockedWindow", args: JSON.stringify({"0": lastCreatedAElement.href}) }, parentOrigin);
+						return null;
+					}
+					return originalCreateEventFn.apply(document, arguments);
+				} catch(err) {}
+			};
+			/////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+			/////////////////////////////////////////////////////////////////////////////////
+			// Monitor full screen requests
+			/////////////////////////////////////////////////////////////////////////////////
+			function onFullScreen(isInFullScreenMode) {
+					if (isInFullScreenMode) {
+						fullScreenOpenTime = (new Date()).getTime();
+						// console.info("fullScreenOpenTime = " + fullScreenOpenTime);
+					} else {
+						fullScreenOpenTime = NaN;
+					}
+			};
+			/////////////////////////////////////////////////////////////////////////////////
+
+			function isDocumentInFullScreenMode() {
+				// Note that the browser fullscreen (triggered by short keys) might
+				// be considered different from content fullscreen when expecting a boolean
+				return ((document.fullScreenElement && document.fullScreenElement !== null) ||    // alternative standard methods
+					((document.mozFullscreenElement != null) || (document.webkitFullscreenElement != null)));                   // current working methods
+			}
+
+			document.addEventListener("fullscreenchange", function () {
+				onFullScreen(document.fullscreen);
+			}, false);
+
+			document.addEventListener("mozfullscreenchange", function () {
+				onFullScreen(document.mozFullScreen);
+			}, false);
+
+			document.addEventListener("webkitfullscreenchange", function () {
+				onFullScreen(document.webkitIsFullScreen);
+			}, false);
+
+		} inject()</script>
+<body class=" __plain_text_READY__">
+<div class="bg" style="height: 913px; overflow: hidden;"><img id="bg_img" src="./XCTF Platform __files/bg2.jpg"></div>
+ 
+<section class="xctf-logo" deluminate_imagetype="png"></section>
+ 
+<div class="personal-icon-wrapper">
+<div class="personal-icon-box" deluminate_imagetype="png"></div>
+<div class="personal-icon-nav" deluminate_imagetype="png">
+<a href="http://hctf.xctf.org.cn/personalinfo/">Info</a><br>
+<a href="http://hctf.xctf.org.cn/personalpoints/">Personal</a><br>
+<a href="http://hctf.xctf.org.cn/changepwd/">Password</a><br>
+<a href="http://hctf.xctf.org.cn/newexamtrend/2/" onclick="exit(&#39;/rest/logout/&#39;, &#39;Logout failed&#39;, &#39;/rest/login/&#39;)">Logout</a><br>
+</div>
+</div>
+<div class="theme-icon-wrapper">
+<div class="theme-icon-box" deluminate_imagetype="png"></div>
+<div class="theme-icon-nav" deluminate_imagetype="png" style="display: none;">
+<div class="theme-btn-box">
+<div class="theme-btn theme-btn-default" data-theme="default" data-index="0"></div>
+<div class="theme-btn theme-btn-orange" data-theme="orange" data-index="1"></div>
+<div class="theme-btn theme-btn-green" data-theme="green" data-index="2"></div>
+</div>
+<div class="theme-bg-img-box">
+<div class="theme-bg-img theme-btn-0" data-img="/static/img/bg0.jpg" data-index="0" deluminate_imagetype="jpg"></div>
+<div class="theme-bg-img theme-btn-1" data-img="/static/img/bg1.jpg" data-index="1" deluminate_imagetype="jpg"></div>
+<div class="theme-bg-img theme-btn-2" data-img="/static/img/bg2.jpg" data-index="2" deluminate_imagetype="jpg"></div>
+<div class="theme-bg-img theme-btn-3" data-img="/static/img/bg3.jpg" data-index="3" deluminate_imagetype="jpg"></div>
+<div class="theme-bg-img theme-btn-4" data-img="/static/img/bg4.jpg" data-index="4" deluminate_imagetype="jpg"></div>
+<div class="theme-bg-img theme-btn-5" data-img="/static/img/bg5.jpg" data-index="5" deluminate_imagetype="jpg"></div>
+</div>
+</div>
+</div>
+<script>
+	$(function () {
+		var COOKIE_EXPIRES = 360;
+
+				//profile info.右上角个人中心
+				$('.personal-icon-wrapper').mouseover(function () {
+					$('.personal-icon-nav').show();
+					$('.personal-icon-nav-top-border').show();
+					$('.personal-icon-box').addClass('personal-icon-box-hover');
+				});
+				$('.personal-icon-wrapper').mouseleave(function () {
+					$('.personal-icon-nav').hide();
+					$('.personal-icon-nav-top-border').hide();
+					$('.personal-icon-box').removeClass('personal-icon-box-hover');
+				});
+				//skin solution.右上角换肤
+				$('.theme-icon-wrapper').mouseover(function () {
+					$('.theme-icon-nav').show();
+					$('.theme-icon-nav-top-border').show();
+					$('.theme-icon-box').addClass('theme-icon-box-hover');
+				});
+				$('.theme-icon-wrapper').mouseleave(function () {
+					$('.theme-icon-nav').hide();
+					$('.theme-icon-nav-top-border').hide();
+					$('.theme-icon-box').removeClass('theme-icon-box-hover');
+				});
+
+				//换肤、换背景cookies实现
+				//换肤功能
+				//第一次设置cookies默认值
+				if (!$.cookie('skin')) {
+					$.cookie('skin', $('.theme-btn:first').data('index'), {expires: COOKIE_EXPIRES, path: '/'});
+					$.cookie('skin_name', $('.theme-btn:first').data('theme'), {expires: COOKIE_EXPIRES, path: '/'});
+				}
+
+				$('.theme-btn').click(function () {
+					change_skin($.cookie('skin'), $(this).data('theme'));
+					$.cookie('skin', $(this).data('index'), {expires: COOKIE_EXPIRES, path: '/'});
+					$.cookie('skin_name', $(this).data('theme'), {expires: COOKIE_EXPIRES, path: '/'});
+				})
+
+				function change_skin(skin_idx, theme) {
+					var css_url;
+					$("link").each(function () {
+
+						css_url = $(this).attr('href');
+
+						if (css_url.indexOf("theme") >= 0) {
+							this.remove();
+							var css = document.createElement("link");
+							css.setAttribute("rel", "stylesheet");
+							css.href = css_url.replace(/(theme\/)\w+(\/)/ig, '$1' + theme + '$2');
+							document.getElementsByTagName("head")[0].appendChild(css);
+							css.onload = function () {
+								if (typeof(changeCurrentHtml) != 'undefined') {
+									changeCurrentHtml();
+								}
+							}
+						}
+					});
+				}
+
+				//换背景功能
+				//第一次设置cookies默认值
+				if (!$.cookie('skin_bg')) {
+					$.cookie('skin_bg', $('.theme-btn-2').data('img'), {expires: COOKIE_EXPIRES, path: '/'});
+					$.cookie('skin_bg_index', $('.theme-btn-2').data('index'), {expires: COOKIE_EXPIRES, path: '/'});
+				}
+
+				$('.theme-bg-img').click(function () {
+					$.cookie('skin_bg', $(this).data('img'), {expires: COOKIE_EXPIRES, path: '/'});
+					$.cookie('skin_bg_index', $(this).data('index'), {expires: COOKIE_EXPIRES, path: '/'});
+					$('.bg img').attr('src', $(this).data('img'));
+				})
+
+				//字符串比较函数
+				function strcmp(a, b) {
+					a = a.toString(), b = b.toString();
+					for (var i = 0, n = Math.max(a.length, b.length); i < n && a.charAt(i) === b.charAt(i); ++i);
+					if (i === n) return 0;
+					return a.charAt(i) > b.charAt(i) ? -1 : 1;
+				}
+			}
+	)
+</script>
+<section class="content-wrap">
+<input type="hidden" id="contestId" value="2">
+<div style="overflow: hidden;">
+<div id="exam-nav" style="margin-top: 100px;margin-bottom: 20px;">
+<div class="nav-top" deluminate_imagetype="png"></div>
+<ul class="text-center" id="nav-tab" deluminate_imagetype="png">
+<li><a href="http://hctf.xctf.org.cn/newexamhome/2/">Home</a></li>
+<li><a href="http://hctf.xctf.org.cn/newexamnotice/2/">Notice</a>
+</li>
+<li><a id="top-challenge" href="http://hctf.xctf.org.cn/newexamchallenge/2/">Challenge</a></li>
+<li><a href="http://hctf.xctf.org.cn/newexamfighting/2/">Scoreboard</a>
+</li>
+<li><a href="http://hctf.xctf.org.cn/newexamscoreboard/2/">Ranking</a>
+</li>
+<li><a href="javascript:void(0);" class="nav-tab-01">Trends</a>
+</li>
+<li><a href="http://hctf.xctf.org.cn/newexampie/2/" target="_blank">Dynamic</a>
+</li>
+</ul>
+</div>
+</div>
+<script>
+    var contestId = 2;
+    $(function () {
+        $('#nav-tab li a').each(function () {
+            if ($($(this))[0].href == String(window.location)) {
+                $(this).attr('href', 'javascript:void(0);').addClass('nav-tab-01');
+            }
+        });
+    });
+
+
+</script>
+<div class="hd-new-box">
+ 
+<div class="" id="trend">
+<section class="container ">
+<div id="main_echart" style="width: 100%; height: 600px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: transparent;" _echarts_instance_="ec_1480126122629"><div style="position: relative; overflow: hidden; width: 940px; height: 600px; cursor: default;"><canvas width="940" height="600" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 940px; height: 600px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></canvas></div><div></div></div>
+</section>
+</div>
+</div>
+</section>
+ 
+<section class="cyberp-logo" deluminate_imagetype="png"></section>
+<div class="modal fade bs-example-modal-sm msgModal" id="error" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-sm">
+<div class="msgBox" deluminate_imagetype="png">
+<div class="msgInnerBox">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+<h4 class="modal-title text-center fontBold" id="myModalLabel">Show News</h4>
+</div>
+<div class="modal-body msg-body">
+<p id="errorMsg">
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal fade bs-example-modal-sm msgModal" id="errorMember" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-sm">
+<div class="msgBox" deluminate_imagetype="png">
+<div class="msgInnerBox">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+<h4 id="errorMemberMsg" class="modal-title text-center fontBold">News</h4>
+</div>
+<div class="modal-body msg-body">
+<p class="uploadWriteUpModalbtn" id="messageInfo">123456789</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+        $(document).ready(function (s) {
+                    var _bgHeight, _windowWidth;
+
+                    _bgHeight = $('.bg').height();
+
+                    //背景自适应滚动
+                    $(window).on("load resize", bgScrollCalculate);
+                    $(document).on("scroll", bgScrollCalculate);
+
+                    /*
+                     var b = document.getElementById('bg_img');
+                     b.onload = function () {
+                     _bgHeight = $('.bg').height();
+                     }
+                     */
+
+                    $('.bg>img').on("load", function () {
+                        _bgHeight = $('.bg').height();
+                    });
+
+                    $('.container-box').bind('resize', function (e) {
+                        //_bgHeight = $('.bg>img').height();
+                        bgScrollCalculate(e);
+                    });
+
+                    function bgScrollCalculate(e) {
+
+                        //复位背景图片高度
+                        $('.bg').css('height', _bgHeight);
+                        containorHeight = $('.content-wrap').height();
+
+                        //有时不等，有待研究
+                        screenVisibleHeight = window.innerHeight;
+                        screenVisibleHeight = $(window).height();
+                        _windowWidth = $(window).width() < 1200 ? true : false;
+
+                        scrollTop = $(document).scrollTop();
+
+                        if (_windowWidth) {
+                            containorHeight = containorHeight * .85;
+                        }
+                        if (containorHeight > _bgHeight) {
+                            $('.bg').css('width', $(window).width());
+
+                            $('.bg').css('top', scrollTop - scrollTop / (containorHeight - screenVisibleHeight) * (_bgHeight - screenVisibleHeight));
+
+                        } else {
+                            if (containorHeight <= _bgHeight) {
+
+                                if (containorHeight <= screenVisibleHeight) {
+                                    $('.bg').css('height', screenVisibleHeight);
+                                } else {
+                                    $('.bg').css('height', containorHeight);
+                                }
+                                $('.bg').css('overflow', 'hidden');
+
+
+                            }
+                        }
+
+                    }
+                }
+        );
+        //导航初始化navInit
+        (function () {
+            var matching = window.location.pathname.match(/\w+/i);
+            // console.log(matching)
+            if (matching) {
+                $('a[data-name=' + matching[0] + ']').addClass('active');
+            }
+        })
+
+
+    </script>
+<script>
+        var contestSolvedUrl = '/rest/contest/solved/';
+        getTeamScoreInfo();
+        setInterval("getTeamScoreInfo()", 60000);
+    </script>
+
+<div id="cli_dialog_div"></div></body><div></div></html>

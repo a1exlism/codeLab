@@ -1,0 +1,4 @@
+{
+	"name": "cat",
+	"main": "./lib/main.js"	//定义入口文件
+}
