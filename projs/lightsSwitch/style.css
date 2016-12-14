@@ -1,0 +1,48 @@
+body {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Chrome/Safari/Opera */
+  -khtml-user-select: none;
+  /* Konqueror */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently not supported by any browser */ }
+
+h1 {
+  text-align: center; }
+
+.container .row {
+  color: #fff;
+  background-color: #333;
+  margin: 0 auto;
+  padding: 0;
+  width: 600px;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  list-style-type: none;
+  border-bottom: solid #fff 1px; }
+  .container .row:last-child {
+    border: 0; }
+  .container .row .active {
+    background-color: rgba(73, 215, 6, 0.51); }
+  .container .row .cell {
+    display: flex;
+    flex-basis: 30px;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-right: solid #fff 1px;
+    font-size: 0.8em; }
+    .container .row .cell:last-child {
+      border: 0; }
+    .container .row .cell:hover {
+      cursor: pointer; }
+
+/*# sourceMappingURL=style.css.map */
