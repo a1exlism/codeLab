@@ -2,7 +2,6 @@
 .sass-cache
 .sass-cache/*
 *.css.map
-*.scss
 
 # node modules
 /node_modules/*

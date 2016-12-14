@@ -1,0 +1,53 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	color: #fff;
+	background-color: #444;
+}
+
+#absolute,
+#relative {
+	height: 400px;
+	width: 400px;
+	float: left;
+	margin: 10px;
+	position: static;
+	background-color: #222;
+
+	.origin {
+		position: fixed;
+		margin-left: 40px;
+		padding: 0;
+		border: solid 1px rgb(110, 20, 164);
+		width: 200px;
+		height: 60px;
+
+		p {
+			margin: 1px;
+		}
+	}
+
+	.new {
+		background-color: rgba(84, 62, 255, 0.74);
+		width: 200px;
+		height: 60px;
+		p {
+			text-align: right;
+		}
+	}
+}
+
+#absolute > .new {
+	position: absolute;
+	top: 0;
+	left: 20px;
+}
+
+#relative > .new {
+	position: relative;
+	top: 0;
+	left: 20px;
+}

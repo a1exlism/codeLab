@@ -1,0 +1,71 @@
+$cell-width: 30px;
+$cell-height: 30px;
+$num: 20;
+$def-color: #fff;
+$def-bgcolor: #333;
+$act-bgcolor: rgba(73, 215, 6, 0.51);
+@mixin noselect() {
+	-webkit-touch-callout: none;
+	/* iOS Safari */
+	-webkit-user-select: none;
+	/* Chrome/Safari/Opera */
+	-khtml-user-select: none;
+	/* Konqueror */
+	-moz-user-select: none;
+	/* Firefox */
+	-ms-user-select: none;
+	/* Internet Explorer/Edge */
+	user-select: none;
+	/* Non-prefixed version, currently not supported by any browser */
+}
+
+body {
+	@include noselect;
+}
+
+h1 {
+	text-align: center;
+}
+
+.container {
+	.row {
+		color: $def-color;
+		background-color: $def-bgcolor;
+		margin: 0 auto;
+		padding: 0;
+		width: $cell-width * $num;
+		height: $cell-height;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		list-style-type: none;
+		border-bottom: solid $def-color 1px;
+
+		&:last-child {
+			border: 0;
+		}
+
+		.active {
+			background-color: $act-bgcolor;
+		}
+
+		.cell {
+			display: flex;
+			flex-basis: $cell-width;
+			align-items: center;
+			justify-content: center;
+			width: $cell-height;
+			height: $cell-height;
+			border-right: solid $def-color 1px;
+			font-size: 0.8em;
+
+			&:last-child {
+				border: 0;
+			}
+
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+}
