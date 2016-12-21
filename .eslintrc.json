@@ -10,13 +10,15 @@
   "plugins": [
     "react",
     "jsx-a11y",
-    "import"
+    "import",
+    "eslint-plugin-html"
   ],
   "parser": "babel-eslint",
   "rules": {
     "require-jsdoc": "off",
     "no-unused-vars": ["off", 0],
-    "indent": ["error", 2]
+    "indent": ["error", 2],
+    "max-len": "off"
   },
   "settings": {
     "react": {
