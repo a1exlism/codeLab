@@ -2,46 +2,80 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		body {
+			background-color: #333;
+			color: #fff;
+		}
+		
+		.bar {
+			background-color: #222;
+		}
+	</style>
 </head>
 
 <body>
-  <h1>出自于: https://www.v2ex.com/t/328943</h1>
-  <text>
-    <li>为 &lt;ul&gt; 添加一个类 bar</li>
-    <li>删除第 10 个 &lt;li&gt;</li>
-    <li>在第 500 个 &lt;li&gt; 后面增加一个 &lt;li&gt; , 其文字内容为 &lt;v2ex.com /&gt;</li>
-    <li>点击任意 &lt;li&gt; 弹窗显示其为当前列表中的第几项。</li>
-  </text>
+<h1>出自于: https://www.v2ex.com/t/328943</h1>
+<ul>
+	<li>为 &lt;ul&gt; 添加一个类: bar</li>
+	<li>删除第 10 个 &lt;li&gt;</li>
+	<li>在第 500 个 &lt;li&gt; 后面增加一个 &lt;li&gt; , 其文字内容为 &lt;v2ex.com /&gt;</li>
+	<li>点击任意 &lt;li&gt; 弹窗显示其为当前列表中的第几项。</li>
+</ul>
 
-  <p style="color: red;" id="start"> --- 题目 --- </p>
-  <ul id="list" class="foo">
-    <li>#0</li>
-    <li><span>#1</span></li>
-    <li>#2</li>
-    <li>#3</li>
-    <li>
-      <ul>
-        <li>#4</li>
-      </ul>
-    </li>
-    ...
-    <li><a href="//v2ex.com">#99998</a></li>
-    <li>#99999</li>
-    <li>#100000</li>
-  </ul>
-  <p style="color: red;"> --- 题目 --- </p>
+<p style="color: red;" id="start"> --- 题目 --- </p>
+<!--<ul id="list" class="foo">
+	<li>#0</li>
+	<li><span>#1</span></li>
+	<li>#2</li>
+	<li>#3</li>
+	<li>
+		<ul>
+			<li>#4</li>
+		</ul>
+	</li>
+	...
+	<li><a href="//v2ex.com">#99998</a></li>
+	<li>#99999</li>
+	<li>#100000</li>
+</ul>-->
+<p style="color: red;" id="end"> --- 题目 --- </p>
 
-  <p>考点: dom基本操作, 事件代理</p>
-  <script>
-    // create elements
-    let ul = document.createElement('ul');
-    
-    document.querySelector('#start').append()
-  </script>
+<p>考点: dom基本操作, 事件代理(利用事件冒泡和事件捕获)</p>
+<script>
+	// create elements
+	let ul = document.createElement('ul');
+	ul.setAttribute('id', 'list');
+	ul.setAttribute('class', 'foo');
+	for (let i = 0; i < 101; i++) {
+		let li = document.createElement('li');
+		let span = document.createElement('span');
+		span.appendChild(document.createTextNode('#' + i));
+		li.appendChild(span);
+		ul.appendChild(li);
+	}
+	let start = document.querySelector('#start');
+	start.parentNode.insertBefore(ul, start.nextSibling);
+	//	1. 添加类
+	ul.setAttribute('class', 'bar');
+	//	2. 删除第10个li
+	ul.removeChild(ul.children[9]);
+	//  3. 添加节点
+	let newLi = document.createElement('li');
+	newLi.innerText = '<v2ex.com/>';
+	let li50 = ul.children[49];
+	li50.parentNode.insertBefore(newLi, li50);
+	//  4. 事件绑定 Event Delegation
+	ul.addEventListener('click', (event) => {
+		if (event.target && event.target.nodeName == 'LI') {
+			console.log(event.target.childNodes[0].innerText);
+		}
+	});
+</script>
 </body>
 
 </html>
