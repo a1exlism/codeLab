@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>出自于: https://www.v2ex.com/t/328943</h1>
+  <text>
+    <li>为 &lt;ul&gt; 添加一个类 bar</li>
+    <li>删除第 10 个 &lt;li&gt;</li>
+    <li>在第 500 个 &lt;li&gt; 后面增加一个 &lt;li&gt; , 其文字内容为 &lt;v2ex.com /&gt;</li>
+    <li>点击任意 &lt;li&gt; 弹窗显示其为当前列表中的第几项。</li>
+  </text>
+
+  <p style="color: red;" id="start"> --- 题目 --- </p>
+  <ul id="list" class="foo">
+    <li>#0</li>
+    <li><span>#1</span></li>
+    <li>#2</li>
+    <li>#3</li>
+    <li>
+      <ul>
+        <li>#4</li>
+      </ul>
+    </li>
+    ...
+    <li><a href="//v2ex.com">#99998</a></li>
+    <li>#99999</li>
+    <li>#100000</li>
+  </ul>
+  <p style="color: red;"> --- 题目 --- </p>
+
+  <p>考点: dom基本操作, 事件代理</p>
+  <script>
+    // create elements
+    let ul = document.createElement('ul');
+    
+    document.querySelector('#start').append()
+  </script>
+</body>
+
+</html>
